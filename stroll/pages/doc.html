@@ -1,0 +1,368 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Stroll</title>
+    <link rel="alternate" type="application/rss+xml" title="egrappler.com" href=".feed/index.html">
+    <link href="http://fonts.googleapis.com/css?family=Raleway:700,300" rel="stylesheet"
+          type="text/css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/prettify.css">
+
+    <style type="text/css">
+
+        table.imagetable {
+            font-family: verdana,arial,sans-serif;
+            font-size:13px;
+            color:#333333;
+            border-width: 1px;
+            border-color: #999999;
+            border-collapse: collapse;
+            width: 665px;
+        }
+
+        table.imagetable th {
+            background:#b5cfd2;
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #999999;
+        }
+        table.imagetable td {
+            background:#dcddc0;
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #999999;
+        }
+
+    </style>
+</head>
+<body>
+<nav>
+    <div class="container">
+        <h1>Stroll</h1>
+        <div id="menu">
+            <ul class="toplinks">
+                <li><a href="what.html">about</a></li>
+                <li><a href="https://github.com/zcding001/stroll">git</a></li>
+            </ul>
+        </div>
+        <a id="menu-toggle" href="#" class=" ">&#9776;</a></div>
+</nav>
+<header style="display: none">
+    <div class="container">
+        <h2 class="docs-header"> Have time to stroll</h2>
+    </div>
+</header>
+<section>
+    <div class="container">
+        <ul class="docs-nav" id="menu-left">
+            <li><strong>快速入门</strong></li>
+            <li><a href="./what.html" class="">什么是Stroll</a></li>
+            <li><a href="./buildEnv.html" class="">环境搭建</a></li>
+            <li><a href="./doc.html" style="background: #eee; border-right: 2px solid #ccc;">配置说明</a></li>
+            <li><a href="./cmdDoc.html" class=" ">命令说明</a></li>
+            <li class="separator"></li>
+            <li><strong>其他</strong></li>
+            <li><a href="./fqa.html" class=" ">FQA</a></li>
+            <li><a href="./toDo.html" class=" ">优化...</a></li>
+        </ul>
+
+        <div class="docs-content">
+            <h2>配置说明</h2>
+            <h3>config.ini</h3>
+            <ul>
+                <li>全局配置(global)</li>
+            </ul>
+            <pre class="prettyprint">
+[global]
+mvn_path=/data/www/tools/apache-maven-3.5.3/bin/mvn
+dst_path=/home/develop/.jenkins/workspace
+container_root_path=/data/www
+local_share_path=/data/www/projects/stroll
+producer_try_times=20
+customer_try_times=80
+            </pre>
+            <div style="margin-left: 25px;">
+                <table class="imagetable" border="1px">
+                    <thead>
+                        <tr>
+                            <th style="width: 80px;">属性</th>
+                            <th style="width: 30px;">必须</th>
+                            <th style="width: 75px;">默认值</th>
+                            <th>描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>mvn_path</td>
+                            <td>Y</td>
+                            <td>无</td>
+                            <td>maven路径</td>
+                        </tr>
+                        <tr>
+                            <td>dst_path</td>
+                            <td>Y</td>
+                            <td>无</td>
+                            <td>资源存放路径</td>
+                        </tr>
+                        <tr>
+                            <td>container_root_path</td>
+                            <td>Y</td>
+                            <td>/data/www</td>
+                            <td>容器内根路径</td>
+                        </tr>
+                        <tr>
+                            <td>local_share_path</td>
+                            <td>Y</td>
+                            <td>无</td>
+                            <td>宿主主机与容器挂载路径</td>
+                        </tr>
+                        <tr>
+                            <td>producer_try_times</td>
+                            <td>N</td>
+                            <td>20</td>
+                            <td>dubbo尝试次数</td>
+                        </tr>
+                        <tr>
+                            <td>customer_try_times</td>
+                            <td>N</td>
+                            <td>80</td>
+                            <td>web尝试次数</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+                
+            <ul>
+                <li>jenkins配置(jenkins)</li>
+            </ul>
+            <pre class="prettyprint">
+[jenkins]
+config_xml_path=/home/develop/.jenkins/config.xml
+job_dst_path=/home/develop/.jenkins/jobs
+            </pre>
+            <div style="margin-left: 25px;">
+                <table class="imagetable" border="1px">
+                    <thead>
+                    <tr>
+                        <th style="width: 80px;">属性</th>
+                        <th style="width: 30px;">必须</th>
+                        <th style="width: 75px;">默认值</th>
+                        <th>描述</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>config_xml_path</td>
+                        <td>Y</td>
+                        <td>无</td>
+                        <td>jenkins全局配置路径</td>
+                    </tr>
+                    <tr>
+                        <td>job_dst_path</td>
+                        <td>Y</td>
+                        <td>无</td>
+                        <td>jenkins任务列表路径</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <ul>
+                <li>分支配置</li>
+            </ul>
+            <pre class="prettyprint">
+[node]
+branch_name=master
+src_path=/data/www/projects/finance-hkjf
+env_path=/data/www/projects/env_hk
+producer_list=user,loan,payment,invest,secondary
+producer_protocol_port_start=6000
+producer_debug_port_start=5000
+customer_list=management,financial,api,bi
+customer_port_start=8000
+customer_debug_port_start=7000
+proxy_tomcat_port=8500
+proxy_ssh_port=8522
+proxy_zk_port=8521
+backup_suffix=_backup
+producer_prefix=finance-
+producer_suffix=-service
+customer_prefix=hk-
+customer_suffix=-services
+version=-1.0-SNAPSHOT
+debug=1
+agent=0
+agent_ip=127.0.0.1:11800
+            </pre>
+            <div style="margin-left: 25px;">
+                <table class="imagetable" border="1px">
+                    <thead>
+                    <tr>
+                        <th style="width: 80px;">属性</th>
+                        <th style="width: 30px;">必须</th>
+                        <th style="width: 75px;">默认值</th>
+                        <th>描述</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>branch_name</td>
+                        <td>N</td>
+                        <td>master</td>
+                        <td>分支名称</td>
+                    </tr>
+                    <tr>
+                        <td>src_path</td>
+                        <td>Y</td>
+                        <td>无</td>
+                        <td>源码路径</td>
+                    </tr>
+
+                    <tr>
+                        <td>env_path</td>
+                        <td>Y</td>
+                        <td>无</td>
+                        <td>测试环境资源路径</td>
+                    </tr>
+                    <tr>
+                        <td>producer_list</td>
+                        <td>Y</td>
+                        <td>无</td>
+                        <td>生产者服务列表</td>
+                    </tr>
+                    <tr>
+                        <td>producer_protocol_port_start</td>
+                        <td>N</td>
+                        <td>6000</td>
+                        <td>生产者dubbo协议端口</td>
+                    </tr>
+                    <tr>
+                        <td>producer_debug_port_start</td>
+                        <td>N</td>
+                        <td>5000</td>
+                        <td>生产者debug端口</td>
+                    </tr>
+                    <tr>
+                        <td>customer_list</td>
+                        <td>Y</td>
+                        <td>无</td>
+                        <td>消费者(web)服务列表</td>
+                    </tr>
+                    <tr>
+                        <td>customer_port_start</td>
+                        <td>N</td>
+                        <td>8000</td>
+                        <td>消费者(web)服务端口</td>
+                    </tr>
+                    <tr>
+                        <td>customer_debug_port_start</td>
+                        <td>N</td>
+                        <td>7000</td>
+                        <td>消费者(web)服务debug端口</td>
+                    </tr>
+                    <tr>
+                        <td>proxy_tomcat_port</td>
+                        <td>Y</td>
+                        <td>无</td>
+                        <td>宿主主机映射docker容器的web端口</td>
+                    </tr>
+                    <tr>
+                        <td>proxy_ssh_port</td>
+                        <td>Y</td>
+                        <td>无</td>
+                        <td>宿主主机映射docker容器的ssh端口</td>
+                    </tr>
+                    <tr>
+                        <td>proxy_zk_port</td>
+                        <td>Y</td>
+                        <td>无</td>
+                        <td>宿主主机映射docker容器的zk端口</td>
+                    </tr>
+
+                    <tr>
+                        <td>backup_suffix</td>
+                        <td>N</td>
+                        <td>_backup</td>
+                        <td>docker容器内备份服务后缀</td>
+                    </tr>
+                    <tr>
+                        <td>producer_prefix</td>
+                        <td>N</td>
+                        <td>finance-</td>
+                        <td>生产者资源前缀</td>
+                    </tr>
+                    <tr>
+                        <td>producer_suffix</td>
+                        <td>N</td>
+                        <td>-service</td>
+                        <td>生产者资源后缀</td>
+                    </tr>
+                    <tr>
+                        <td>customer_prefix</td>
+                        <td>N</td>
+                        <td>hk-</td>
+                        <td>消费者资源前缀</td>
+                    </tr>
+                    <tr>
+                        <td>customer_suffix</td>
+                        <td>N</td>
+                        <td>-services</td>
+                        <td>消费者资源后缀</td>
+                    </tr>
+                    <tr>
+                        <td>version</td>
+                        <td>N</td>
+                        <td>-1.0-SNAPSHOT</td>
+                        <td>资源版本号</td>
+                    </tr>
+                    <tr>
+                        <td>debug</td>
+                        <td>N</td>
+                        <td>1</td>
+                        <td>服务debug开关</td>
+                    </tr>
+                    <tr>
+                        <td>agent</td>
+                        <td>N</td>
+                        <td>0</td>
+                        <td>服务APM开关</td>
+                    </tr>
+                    <tr>
+                        <td>agent_ip</td>
+                        <td>Y</td>
+                        <td>无</td>
+                        <td>APM集控地址</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="vibrant centered">
+    <div class="container">
+        <h4><a href="./what.html">Have time to stroll !</a></h4>
+    </div>
+</section>
+<footer>
+    <div class="container">
+        <p> &copy; 2018 zc.ding | stroll | <a href="https://github.com/surpass1990" target="_blank"
+                                              title="surpass1990">surpass1990</a></p>
+    </div>
+</footer>
+<script src="../js/jquery.min.js"></script>
+
+<script type="text/javascript" src="../js/prettify/prettify.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/lang-apollo.js?lang=css&skin=sunburst"></script>-->
+<script src="../js/layout.js"></script>
+<script src="../js/jquery.localscroll-1.2.7.js" type="text/javascript"></script>
+<script src="../js/jquery.scrollTo-1.4.3.1.js" type="text/javascript"></script>
+</body>
+</html>
