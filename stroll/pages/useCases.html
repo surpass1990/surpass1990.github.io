@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Stroll</title>
+    <link rel="alternate" type="application/rss+xml" title="egrappler.com" href=".feed/index.html">
+    <link href="http://fonts.googleapis.com/css?family=Raleway:700,300" rel="stylesheet"
+          type="text/css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/prettify.css">
+</head>
+<body>
+<div id="comm-header"></div>
+<section>
+    <div class="container">
+        <div class="docs-nav" id="comm-menu"></div>
+        <div class="docs-content">
+            <!--<h2>使用用例</h2>-->
+            <hr>
+            <p class="comm-p">
+                设计到软件的安装这里不在赘述，针对需要注意的细节会加以阐述!
+            </p>
+            <h3>场景</h3>
+            <div class="comm-p">
+                <div>需求：</div>
+                <div class="comm-des">金服项目：包含5个服务提供者a,b,c,d,e；两个消费者web-a，web-b，分支数量3+，现搭建测试环境</div>
+                <div>目标：</div>
+                <div class="comm-des">各个服务无等待部署，随时创建任意分支测试环境</div>
+            </div>
+            
+            <h3>主机列表</h3>
+            <ul>
+                <li>服务器A-控制中心，部署jenkins, maven, jdk8+, git, python3及相关模块, 项目源码</li>
+                <li>服务器B-运行中心，运行docker及容器, 支持ssh远程连接</li>
+            </ul>
+            
+            <h3>构建docker镜像(服务器B)</h3>
+            <p class="comm-p">
+                pull stroll源码并进入docker文件夹中运行如下命令创建运行容器的镜像
+            </p>
+            <pre class="prettyprint" style="padding: 0;">
+docker build -t "名称:版本" .
+            </pre>
+            <div class="comm-tips">
+                tips: "名称:版本"要与container_handler.py中run容器时使用的"名称:版本"保持一致，镜像配置开启ssh口令访问模式，默认口令密码"root/Docker@123"
+            </div>
+            
+            <h3>配置jenkins(服务器A)</h3>
+            <div class="comm-p">
+                <div style="font-weight: bold">创建初始化测试环境任务:</div>
+                <div class="comm-des">
+                    环境构建步骤:<br>
+                    &nbsp;&nbsp;步骤1：创建jenkins视图、任务列表<br>
+                    &nbsp;&nbsp;步骤2：执行远程命令，在宿主主机创建容器<br>
+                    &nbsp;&nbsp;步骤3：等待10秒，给容器足够的启动时间<br>
+                    &nbsp;&nbsp;步骤4：调用容器中命令，完成项目运行的环境的初始化操作。<br>
+                    &nbsp;&nbsp;步骤5：添加zk端口到dubbo-admin监控中<br><br>
+
+
+                    构建新分支需更新如下内容:<br>
+                    &nbsp;&nbsp;1、更新所有步骤中设计的节点名称,如下图中hk_master就是节点名称也是<a href="./doc.html">config.ini</a>的节点(node)名称<br>
+                    &nbsp;&nbsp;2、更新步骤4中的ssh site 为最新环境的ssh连接凭证<br>
+                    &nbsp;&nbsp;3、更新步骤5中的最新环境的zk代理端口<br>
+                    <br>
+                    完整配置如下(图1)：
+                    <img src="../images/jenkins-add.png"/>
+                </div>
+                <br>
+                <div style="font-weight: bold">创建删除测试环境任务:</div>
+                <div class="comm-des">
+                    移除运行环境:<br>
+                    &nbsp;&nbsp;步骤1：移除jenkins视图、任务列表<br>
+                    &nbsp;&nbsp;步骤2：移除远程宿主主机中运行的容器<br>
+                    &nbsp;&nbsp;步骤3：移除dubbo-admin中监控<br>
+                    <br>
+                    完整配置如下(图2)：
+                    <img src="../images/jenkins-del.png"/>
+                </div>
+            </div>
+            <div class="comm-tips">
+                tips: <br/>
+                1:图1中第一个“SSH site”是“服务A”的ssh连接，第二个“SSH site”是docker容器的ssh连接；图2中“SSH site”是“服务A”的ssh连接<br/>
+                2:任务构建后jenkins任务列表不能立马更新，需要进行"系统设置->读取配置"
+            </div>
+            <p class="comm-p">
+                完成上述配置，只需要动态更新<a href="./doc.html">config.ini</a>中配置信息即可完成场景里的需求并达到预期目标
+            </p>
+        </div>
+    </div>
+</section>
+<div id="comm-footer"></div>
+<script src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/prettify/prettify.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/lang-apollo.js?lang=css&skin=sunburst"></script>-->
+<script src="../js/layout.js"></script>
+<script src="../js/jquery.localscroll-1.2.7.js" type="text/javascript"></script>
+<script src="../js/jquery.scrollTo-1.4.3.1.js" type="text/javascript"></script>
+<script src="../js/common.js" type="text/javascript"></script>
+</body>
+</html>

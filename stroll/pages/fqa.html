@@ -14,39 +14,16 @@
     <link rel="stylesheet" href="../css/prettify.css">
 </head>
 <body>
-<nav>
-    <div class="container">
-        <h1>Stroll</h1>
-        <div id="menu">
-            <ul class="toplinks">
-                <li><a href="#">about</a></li>
-                <li><a href="https://github.com/zcding001/stroll">git</a></li>
-            </ul>
-        </div>
-        <a id="menu-toggle" href="#" class=" ">&#9776;</a></div>
-</nav>
-<header>
-    <div class="container">
-        <h2 class="docs-header"> Have time to stroll</h2>
-    </div>
-</header>
+<!--头部信息-->
+<div id="comm-header"></div>
 <section>
     <div class="container">
-        <ul class="docs-nav" id="menu-left">
-            <li><strong>快速入门</strong></li>
-            <li><a href="./what.html" class="active">什么是Stroll</a></li>
-            <li><a href="./buildEnv.html" class=" ">环境搭建</a></li>
-            <li><a href="./doc.html" class=" ">配置说明</a></li>
-            <li><a href="./cmdDoc.html" class=" ">命令说明</a></li>
-            <li class="separator"></li>
-            <li><strong>其他</strong></li>
-            <li><a href="./fqa.html" class=" ">FQA</a></li>
-            <li><a href="./toDo.html" class=" ">优化...</a></li>
-        </ul>
-
+        <!--菜单-->
+        <div class="docs-nav" id="comm-menu"></div>
+        <!--文档内容-->
         <div class="docs-content">
-            <h2> A&Q</h2>
-            
+            <!--<h2> A&Q</h2>-->
+            <hr>
             <h3 style="color:red">日志模块依赖coloredlogs</h3>
             <pre class="prettyprint">
 Traceback (most recent call last):
@@ -89,23 +66,15 @@ Host key verification failed.
         </div>
     </div>
 </section>
-<section class="vibrant centered">
-    <div class="container">
-        <h4><a href="#">Have time to stroll !</a></h4>
-    </div>
-</section>
-<footer>
-    <div class="container">
-        <p> &copy; 2018 zc.ding | stroll | <a href="https://github.com/surpass1990" target="_blank"
-                                              title="surpass1990">surpass1990</a></p>
-    </div>
-</footer>
+<!--底部信息-->
+<div id="comm-footer"></div>
+<!--依赖js库-->
 <script src="../js/jquery.min.js"></script>
-
 <script type="text/javascript" src="../js/prettify/prettify.js"></script>
-<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=css&skin=sunburst"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/lang-apollo.js?lang=css&skin=sunburst"></script>
 <script src="../js/layout.js"></script>
 <script src="../js/jquery.localscroll-1.2.7.js" type="text/javascript"></script>
 <script src="../js/jquery.scrollTo-1.4.3.1.js" type="text/javascript"></script>
+<script src="../js/common.js" type="text/javascript"></script>
 </body>
 </html>
