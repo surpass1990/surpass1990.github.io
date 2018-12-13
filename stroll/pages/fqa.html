@@ -45,31 +45,47 @@
         </ul>
 
         <div class="docs-content">
-            <h2> 什么是Stroll</h2>
-            <h3> Stroll</h3>
-            <p> Stroll <br>
-                &nbsp;&nbsp;&nbsp;&nbsp;n. 漫步；闲逛；巡回演出<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;vi. 散步；闲逛；巡回演出<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;vt. 散步；闲逛<br>
-            </p>
+            <h2> A&Q</h2>
+            
+            <h3 style="color:red">日志模块依赖coloredlogs</h3>
+            <pre class="prettyprint">
+Traceback (most recent call last):
+File "main.py", line 6, in 
+from handler import service_handler, config_handler, jenkins_config_handler, build_handler, running_env_handler, container_handler
+File "/data/www/script/handler/service_handler.py", line 11, in 
+import coloredlogs
+            </pre>
+            <div style="margin-left: 25px;">
+                <h4 style="color:green;">解决办法</h4>
+                <ul>
+                    <li>pip --version   #确定是否安装pip，如果没有python3 get-pip.py</li>
+                    <li> pip install coloredlogs    # 安装coloredlogs</li>
+                </ul>
+            </div>
 
-            <p>
-                就像google翻译那样，用了stroll你就有时间去stroll了
-            </p>
-            <h3>实现目标</h3>
-            <p>
-                分布式服务部署架构，实现分布服务系统多分支热部署
-            </p>
-            <h3>主要特性</h3>
-            <ul>
-                <li>支持jenkins动态维护视图、任务</li>
-                <li>支持服务化项目灵活构建</li>
-                <li>支持docker服务运行环境构建</li>
-                <li>支持热部署</li>
-                <li>支持APM</li>
-            </ul>
-            <h3>核心架构</h3>
-            <p><img src="../images/framework.jpg"></p>
+            <h3 style="color:red">ssh连接容器失败</h3>
+            <pre class="prettyprint">
+$ ssh root@ip -p port
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that the RSA host key has just been changed.
+The fingerprint for the RSA key sent by the remote host is
+42:be:cf:f4:25:db:4c:28:50:ad:53:5f:e0:d9:20:75.
+Please contact your system administrator.
+Add correct host key in /xxxx/.ssh/known_hosts to get rid of this message.
+Offending key in /xxxx/.ssh/known_hosts:12
+RSA host key for [ip]:port has changed and you have requested strict checking.
+Host key verification failed.
+            </pre>
+            <div style="margin-left: 25px;">
+                <h4 style="color:green;">解决办法</h4>
+                <ul>
+                    <li>vim ~/.ssh/know_hosts  # 删除ip:port对应的秘钥信息，重新ssh连接</li>
+                </ul>
+            </div>
         </div>
     </div>
 </section>
