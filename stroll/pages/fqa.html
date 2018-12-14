@@ -24,6 +24,20 @@
         <div class="docs-content">
             <!--<h2> A&Q</h2>-->
             <hr>
+            <h3 style="color:red">第一次构建失败</h3>
+            <pre class="prettyprint">
+找不到.properties或是占不到依赖
+            </pre>
+            <div style="margin-left: 25px;">
+                <h4 style="color:green;">解决办法</h4>
+                <ul>
+                    <li>
+                        在源码服务器先执行maven clean install -Dmaven.skip.test=true, 在执行jenkins的任务构建，因为打包时使用的命令是install而没有使用package，因为源码中子模块没有
+                        指定具体的version属性，导致package子模块时无法生成target资源                        
+                    </li>
+                </ul>
+            </div>
+            
             <h3 style="color:red">日志模块依赖coloredlogs</h3>
             <pre class="prettyprint">
 Traceback (most recent call last):
