@@ -120,6 +120,13 @@ docker build -t "名称:版本" .
                 为什么不用"mvn cleaen package -pl 模块名称 -am"进行打包，因为模块中没有配置具体的"version", 那么在执行命令会有明确的warning信息，并且不会生成target资源。
                 那么模块中为何不配置version，好处在在于，在项目迭代的过程可以很简单更新root中的version，最终所有子模块的version也随之改变，容易维护。
             </div>
+
+            <h3>分支运行状态</h3>
+            <div class="comm-p">
+                访问http://服务器-B:proxy_tomcat_port<br>
+                如图：
+                <img src="../images/state.jpg"/>
+            </div>
             
             <h3>结语</h3>
             <p class="comm-p">
