@@ -44,6 +44,11 @@
                         <td>监控日志变化</td>
                         <td>3</td>
                     </tr>
+                    <tr>
+                        <td>多任务重启时，由于maven构建需要时间，所以会出现A任务在building，B任务执行了git checkout . 操作，会导致A任务build的不完整甚至失败</td>
+                        <td>在build和git checkout .两个操作上加互斥锁</td>
+                        <td>3</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
