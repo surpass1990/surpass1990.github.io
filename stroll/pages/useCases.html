@@ -22,7 +22,7 @@
             <!--<h2>使用用例</h2>-->
             <hr>
             <p class="comm-p">
-                设计到软件的安装这里不在赘述，针对需要注意的细节会加以阐述!
+                涉及到软件的安装这里不在赘述，针对需要注意的细节会加以阐述!
             </p>
             <h3>场景</h3>
             <div class="comm-p">
@@ -86,6 +86,49 @@ docker build -t "名称:版本" .
                 1:图1中第一个“SSH site”是“服务A”的ssh连接，第二个“SSH site”是docker容器的ssh连接；图2中“SSH site”是“服务A”的ssh连接<br/>
                 2:任务构建后jenkins任务列表不能立马更新，需要进行"系统设置->读取配置"
             </div>
+            <p class="comm-p">
+                完成上述配置，只需要动态更新<a href="./doc.html">config.ini</a>中配置信息即可完成场景里的需求并达到预期目标
+            </p>
+
+            <h3>确认容器内环境</h3>
+            <div class="comm-p">
+                在服务器-B通过ssh root@ip -p port登录容器
+                <div style="font-weight: bold">nginx:</div>
+                <div class="comm-des">
+                   执行service nginx status确定nginx服务运行状态，如果未启动执行service nginx restart|start
+                </div>
+                <br>
+                <div style="font-weight: bold">jdk</div>
+                <div class="comm-des">
+                    java --version 查看版本，提示-bash: java: command not found，执行 cp -rf /data/www/soft/jdk /opt/
+                </div>
+                <br>
+                <div style="font-weight: bold">zookeeper</div>
+                <div class="comm-des">
+                    ps -ef|pgrep zookeeper，如果没有运行的zookeeper，执行cp -rf /data/www/soft/zookeeper /opt/ && cd /opt/zookeeper/bin && bash zkServer.sh restart。
+                    zookeeper启动之前一定要先保证jdk是ok的
+                </div>
+            </div>
+
+            <h3>预编译项目</h3>
+            <div class="comm-p">
+                在服务器-A先mvn clean install -Dmaven.test.skip=true项目,
+                因为脚本在构建项目时只构建需要构建的子模块，而不会构建整个项目(可以有效节省编译时间)，而install不会自动解决依赖，因此pull项目后先本地install
+            </div>
+            <div class="comm-tips">
+                tips: <br/>
+                为什么不用"mvn cleaen package -pl 模块名称 -am"进行打包，因为模块中没有配置具体的"version", 那么在执行命令会有明确的warning信息，并且不会生成target资源。
+                那么模块中为何不配置version，好处在在于，在项目迭代的过程可以很简单更新root中的version，最终所有子模块的version也随之改变，容易维护。
+            </div>
+
+            <h3>分支运行状态</h3>
+            <div class="comm-p">
+                访问http://服务器-B:proxy_tomcat_port<br>
+                如图：
+                <img src="../images/state.jpg"/>
+            </div>
+            
+            <h3>结语</h3>
             <p class="comm-p">
                 完成上述配置，只需要动态更新<a href="./doc.html">config.ini</a>中配置信息即可完成场景里的需求并达到预期目标
             </p>

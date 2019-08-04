@@ -24,6 +24,20 @@
         <div class="docs-content">
             <!--<h2> A&Q</h2>-->
             <hr>
+            <h3 style="color:red">第一次构建失败</h3>
+            <pre class="prettyprint">
+找不到.properties或是占不到依赖
+            </pre>
+            <div style="margin-left: 25px;">
+                <h4 style="color:green;">解决办法</h4>
+                <ul>
+                    <li>
+                        在源码服务器先执行maven clean install -Dmaven.skip.test=true, 在执行jenkins的任务构建，因为打包时使用的命令是install而没有使用package，因为源码中子模块没有
+                        指定具体的version属性，导致package子模块时无法生成target资源                        
+                    </li>
+                </ul>
+            </div>
+            
             <h3 style="color:red">日志模块依赖coloredlogs</h3>
             <pre class="prettyprint">
 Traceback (most recent call last):
@@ -61,6 +75,27 @@ Host key verification failed.
                 <h4 style="color:green;">解决办法</h4>
                 <ul>
                     <li>vim ~/.ssh/know_hosts  # 删除ip:port对应的秘钥信息，重新ssh连接</li>
+                </ul>
+            </div>
+            <h3 style="color:red">git pull fail导致构建失败</h3>
+            <pre class="prettyprint">
+2018-12-17 09:10:53 cmd_util.py[line:19] INFO execute command is [cd /data/www/projects/finance-hkjf && git checkout . && git checkout master && git pull origin master]
+2018-12-17 09:10:53 cmd_util.py[line:23] DEBUG 
+Traceback (most recent call last):
+  File "main.py", line 117, in module
+    Main().switch()
+  File "main.py", line 98, in switch
+    build_handler.build_project(self.__sec_name, service_name)
+  File "/data/www/projects/stroll/script/handler/build_handler.py", line 22, in build_project
+    build_handler._git_pull()
+  File "/data/www/projects/stroll/script/handler/build_handler.py", line 47, in _git_pull
+    raise Exception("command " + cmd + " execute fail. can't pull ")
+Exception: command cd /data/www/projects/finance-hkjf && git checkout . && git checkout master && git pull origin master execute fail. can't pull 
+            </pre>
+            <div style="margin-left: 25px;">
+                <h4 style="color:green;">解决办法</h4>
+                <ul>
+                    <li>重新构建。多job同时构建可能导致job-a操作正在使用properties进行文件替换时，job-b却执行git checkout . 操作，导致构建失败。</li>
                 </ul>
             </div>
         </div>

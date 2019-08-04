@@ -31,6 +31,7 @@
                         <th style="width: 200px;">问题</th>
                         <th style="width: 30px;">解决办法</th>
                         <th style="width: 75px;">优先级</th>
+                        <th style="width: 20px;">状态</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -38,11 +39,19 @@
                         <td>文件拷贝异常导致服务更新失败，但jenkins构建success</td>
                         <td>可以通过自定义异常处理</td>
                         <td>2</td>
+                        <td>NO</td>
                     </tr>
                     <tr>
                         <td>容器内服务在切换时可能会导致正在执行的服务终端</td>
                         <td>监控日志变化</td>
                         <td>3</td>
+                        <td>NO</td>
+                    </tr>
+                    <tr>
+                        <td>多任务重启时，由于maven构建需要时间，所以会出现A任务在building，B任务执行了git checkout . 操作，会导致A任务build的不完整甚至失败</td>
+                        <td>在build和git checkout .两个操作上加互斥锁</td>
+                        <td>3</td>
+                        <td>YES</td>
                     </tr>
                     </tbody>
                 </table>
@@ -55,20 +64,24 @@
                     <tr>
                         <th style="width: 200px;">功能</th>
                         <th style="width: 75px;">优先级</th>
+                        <th style="width: 20px;">状态</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td>显示运行中的debug端口</td>
-                        <td>1</td>
+                        <td>config.ini中*_prefix、*_suffix等属性配置暂未解析</td>
+                        <td>3</td>
+                        <td>NO</td>
                     </tr>
                     <tr>
                         <td>支持源代码在宿主主机上完成资源分发</td>
                         <td>2</td>
+                        <td>NO</td>
                     </tr>
                     <tr>
                         <td>支持arthas</td>
                         <td>3</td>
+                        <td>NO</td>
                     </tr>
                     </tbody>
                 </table>
